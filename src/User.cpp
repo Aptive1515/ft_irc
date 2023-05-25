@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   User.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaidel <chaidel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 18:50:55 by aptive            #+#    #+#             */
-/*   Updated: 2023/05/16 16:14:25 by chaidel          ###   ########.fr       */
+/*   Updated: 2023/05/24 15:56:00 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ User::User(int fd) : _set(false), _fd(fd), _username("X"), _nickname("X"), _host
 User::~User()
 {
 	this->_list_cnl.clear();
+	close(this->_fd);
 }
 
 /*
@@ -148,7 +149,7 @@ void	User::clearBuf( void )
 // 	std::cout << "list part of cnl " << this->getListCnl() << std::endl;
 // 	for (std::vector<Channel*>::iterator it = this->_list_cnl.begin(); it != this->_list_cnl.end(); it++)
 // 	{
-		
+
 // 		(*it)->RmUser(this->_nickname);
 // 		this->_list_cnl.erase(it);
 // 	}
@@ -255,7 +256,7 @@ void	User::setSetUser()
 void	User::setUserMode(std::string const& mode)
 {
 	bool		sign;
-	
+
 	size_t		i(0);
 	while (i < mode.size())
 	{
@@ -271,7 +272,7 @@ void	User::setUserMode(std::string const& mode)
 		else if (mode[i] == 'o' && !sign)
 		{
 			this->_oper = false;
-			
+
 		}
 		else if (mode [i] == 'i' && sign)
 		{
@@ -285,7 +286,7 @@ void	User::setUserMode(std::string const& mode)
 		{
 			// ERR_NOTIMPLEMENTED()
 		}
-		
+
 		i++;
 	}
 }
